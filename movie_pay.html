@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>META VISION — Access</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="icon" type="image/png" href="ChatGPT Image 15 mai 2026, 05_20_36.png">
+  <style>
+    :root {
+      --red: #E50914;
+      --dark: #141414;
+      --gold: #F5C518;
+      --bg: #0B0B0B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(229,9,20,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 70%, rgba(245,197,24,0.05) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    nav {
+      background: rgba(11,11,11,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(16px);
+      padding: 0.8rem 0;
+    }
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      text-decoration: none;
+      text-shadow: 0 0 20px rgba(229,9,20,0.4);
+    }
+
+    .pay-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pay-container {
+      width: 100%;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      animation: fadeSlideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .plan-card {
+      background: linear-gradient(135deg, rgba(229,9,20,0.15) 0%, rgba(20,20,20,0.9) 60%);
+      border: 1px solid rgba(229,9,20,0.2);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .plan-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(245,197,24,0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.8rem;
+      margin-bottom: 1.5rem;
+      align-self: flex-start;
+    }
+    .plan-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .plan-title span { color: var(--red); }
+    .plan-desc { font-size: 0.85rem; color: rgba(255,255,255,0.45); margin-bottom: 2rem; }
+    .plan-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .plan-price sup { font-size: 1.5rem; vertical-align: super; }
+    .plan-period { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-bottom: 2rem; }
+
+    .feature-list { list-style: none; padding: 0; flex: 1; }
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list li i { color: var(--red); font-size: 0.9rem; flex-shrink: 0; }
+    .pay-form-card {
+      background: rgba(20,20,20,0.85);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      backdrop-filter: blur(10px);
+    }
+    .form-heading {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.2rem;
+    }
+    .form-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2rem;
+    }
+
+    .field-label {
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.4rem;
+    }
+    .pay-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      transition: all 0.25s;
+    }
+    .pay-input:focus {
+      border-color: var(--red);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(229,9,20,0.12);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+    }
+    .pay-input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .card-row { display: grid; grid-template-columns: 2fr 1fr; gap: 0.75rem; }
+
+    .secure-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 1rem;
+    }
+    .secure-note i { color: rgba(255,255,255,0.3); }
+
+    #paybt {
+      width: 100%;
+      background: var(--red);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    #paybt::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    #paybt:hover {
+      background: #ff1a26;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(229,9,20,0.45);
+    }
+    #paybt:active { transform: translateY(0); }
+
+    .pay-msg {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      text-align: center;
+      min-height: 1.2em;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    .pay-msg.error {
+      background: rgba(229,9,20,0.12);
+      border: 1px solid rgba(229,9,20,0.3);
+      color: #ff6b6b;
+    }
+    .pay-msg.success {
+      background: rgba(40,200,80,0.1);
+      border: 1px solid rgba(40,200,80,0.25);
+      color: #5ddb82;
+    }
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .success-overlay.show { opacity: 1; pointer-events: all; }
+    .success-box {
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      max-width: 380px;
+      transform: scale(0.85);
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .success-overlay.show .success-box { transform: scale(1); }
+    .success-icon {
+      width: 70px; height: 70px;
+      background: rgba(40,200,80,0.15);
+      border: 2px solid rgba(40,200,80,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem;
+      color: #5ddb82;
+    }
+    .success-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .success-desc { font-size: 0.88rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; }
+    .success-back {
+      background: var(--red);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .success-back:hover { background: #ff1a26; transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .pay-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="nav-brand" href="movie_page.html">META VISION</a>
+    <a href="movie_desc.html" style="color:rgba(255,255,255,0.5);font-size:0.85rem;text-decoration:none;">
+      <i class="bi bi-arrow-left"></i> Back
+    </a>
+  </div>
+</nav>
+
+<div class="pay-wrapper">
+  <div class="pay-container">
+    <div class="plan-card">
+      <div class="plan-badge">✦ Premium Plan</div>
+      <div class="plan-title">UNLOCK FULL <span>ACCESS</span></div>
+      <div class="plan-desc">Stream and download any title in our collection without limits.</div>
+      <div class="plan-price"><sup>$</sup>9<span style="font-size:1.8rem">.99</span></div>
+      <div class="plan-period">per month — cancel anytime</div>
+      <ul class="feature-list">
+        <li><i class="bi bi-check-circle-fill"></i> Unlimited streaming</li>
+        <li><i class="bi bi-check-circle-fill"></i> HD & 4K quality</li>
+        <li><i class="bi bi-check-circle-fill"></i> Download for offline</li>
+        <li><i class="bi bi-check-circle-fill"></i> Movies, Series & Anime</li>
+        <li><i class="bi bi-check-circle-fill"></i> No ads, ever</li>
+        <li><i class="bi bi-check-circle-fill"></i> New releases first</li>
+      </ul>
+    </div>
+    <div class="pay-form-card">
+      <div class="form-heading">Payment Details</div>
+      <div class="form-sub">This is a demo — no real transaction will occur.</div>
+
+      <div class="field-label">Full Name</div>
+      <input type="text" class="pay-input" id="payN" placeholder="John Doe"/>
+
+      <div class="field-label">Card Number</div>
+      <input type="text" class="pay-input" id="payC" placeholder="1234 5678 9012 3456" maxlength="19"/>
+
+      <div class="card-row">
+        <div>
+          <div class="field-label">Expiry Date</div>
+          <input type="text" class="pay-input" id="payE" placeholder="MM / YY" maxlength="7"/>
+        </div>
+        <div>
+          <div class="field-label">CVV</div>
+          <input type="text" class="pay-input" id="payCvv" placeholder="•••" maxlength="3"/>
+        </div>
+      </div>
+
+      <div class="secure-note">
+        <i class="bi bi-shield-lock-fill"></i> Secured with SSL encryption (demo only)
+      </div>
+
+      <button id="paybt">🎬 Complete Access</button>
+      <div class="pay-msg" id="payMsg"></div>
+    </div>
+  </div>
+</div>
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">🎬</div>
+    <div class="success-title">ACCESS GRANTED</div>
+    <div class="success-desc">Enjoy your movie! Your cinematic journey starts now.</div>
+    <button class="success-back" onclick="window.location.href='movie_page.html'">← Back to Collection</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="movie.js"></script>
+</body>
+</html>

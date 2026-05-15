@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>META VISION — Movie Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link rel="icon" type="image/png" href="ChatGPT Image 15 mai 2026, 05_20_36.png">
+  <style>
+    :root {
+      --red: #E50914;
+      --dark: #141414;
+      --gold: #F5C518;
+      --bg: #0B0B0B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+    }
+    nav {
+      background: rgba(11,11,11,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(16px);
+      padding: 0.8rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      text-decoration: none;
+      text-shadow: 0 0 20px rgba(229,9,20,0.4);
+    }
+    .back-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .backdrop-wrap {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+    }
+    .backdrop-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(1px) brightness(0.35);
+      transform: scale(1.05);
+    }
+    .backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(11,11,11,0.3) 0%, var(--bg) 100%);
+    }
+    #movdetay {
+      position: relative;
+      margin-top: -120px;
+      z-index: 2;
+      animation: fadeUp 0.6s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .poster-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07);
+      aspect-ratio: 2/3;
+      background: var(--dark);
+      flex-shrink: 0;
+      width: 220px;
+    }
+    .poster-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .movie-info { flex: 1; }
+
+    .cat-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      background: rgba(229,9,20,0.2);
+      border: 1px solid rgba(229,9,20,0.4);
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .cat-badge.anime { background: rgba(245,197,24,0.15); border-color: rgba(245,197,24,0.4); color: var(--gold); }
+    .cat-badge.series { background: rgba(80,160,220,0.15); border-color: rgba(80,160,220,0.4); color: #70b0e0; }
+
+    .movie-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .meta-item i { color: var(--gold); font-size: 0.85rem; }
+
+    .description {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .action-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    #watchbt {
+      background: var(--red);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #watchbt:hover {
+      background: #ff1a26;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(229,9,20,0.4);
+    }
+
+    #downbt {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      color: rgba(255,255,255,0.8);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.8rem 1.8rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #downbt:hover {
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+    .spec-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .spec-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 0.3rem;
+    }
+    .spec-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; }
+
+    @media (max-width: 576px) {
+      .poster-wrap { width: 140px; }
+      #movdetay { margin-top: -80px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container d-flex align-items-center justify-content-between">
+    <a class="nav-brand" href="movie_page.html">META VISION</a>
+    <a class="back-btn" href="movie_page.html">
+      <i class="bi bi-arrow-left"></i> Back to Collection
+    </a>
+  </div>
+</nav>
+<div class="backdrop-wrap">
+  <img id="backdropImg" src="" alt="" class="backdrop-img"/>
+  <div class="backdrop-overlay"></div>
+</div>
+<div class="container" id="movdetay">
+  <div class="d-flex gap-4 flex-wrap flex-sm-nowrap align-items-start">
+    <div class="poster-wrap">
+      <img id="detailPoster" src="" alt="Movie Poster"/>
+    </div>
+    <div class="movie-info">
+      <div id="detailBadge" class="cat-badge"></div>
+      <div class="movie-title" id="detailTitle">Loading...</div>
+      <div class="stars" id="detailStars">★★★★☆</div>
+      <div class="meta-row mt-2">
+        <div class="meta-item"><i class="bi bi-calendar3"></i> <span id="detailYear"></span></div>
+        <div class="meta-item"><i class="bi bi-clock"></i> <span id="detailDuration"></span></div>
+        <div class="meta-item"><i class="bi bi-globe2"></i> <span id="detailCountry"></span></div>
+        <div class="meta-item"><i class="bi bi-translate"></i> <span id="detailLanguage"></span></div>
+        <div class="meta-item"><i class="bi bi-tag"></i> <span id="detailGenre"></span></div>
+      </div>
+      <p class="description" id="detailDesc"></p>
+      <div class="action-btns">
+        <button id="watchbt"><i class="bi bi-play-fill"></i> Watch Now</button>
+        <button id="downbt"><i class="bi bi-download"></i> Download</button>
+      </div>
+    </div>
+  </div>
+  <div class="specs-grid" id="specsGrid">
+    <div class="spec-card">
+      <div class="spec-label">Year</div>
+      <div class="spec-value" id="specYear">—</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Genre</div>
+      <div class="spec-value" id="specGenre">—</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Category</div>
+      <div class="spec-value" id="specCat">—</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Country</div>
+      <div class="spec-value" id="specCountry">—</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Language</div>
+      <div class="spec-value" id="specLang">—</div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-label">Duration</div>
+      <div class="spec-value" id="specDur">—</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="movie.js"></script>
+</body>
+</html>
