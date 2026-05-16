@@ -137,7 +137,7 @@ const movies = [
 ];
 function getCurrentPage() {
   const path = window.location.pathname;
-  if (path.includes("movie_log"))  return "login";
+  if (path.includes("index"))  return "login";
   if (path.includes("movie_page")) return "home";
   if (path.includes("movie_desc")) return "detail";
   if (path.includes("movie_pay"))  return "payment";
